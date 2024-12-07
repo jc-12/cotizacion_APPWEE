@@ -18,7 +18,7 @@
                     exit();
                 }else{
                     //TODO: Preparamos una consulta SQL para obtener los datos del usuario que intenta iniciar sesión
-                    $sql = "SELECT * FROM tm_usuario WHERE usu_correo=? and usu_pass=?";
+                    $sql = "SELECT * FROM t_usuario WHERE usu_correo=? and usu_pass=?";
                     $sql = $conectar->prepare($sql);
                     $sql->bindValue(1, $correo);
                     $sql->bindValue(2, $pass);
@@ -29,7 +29,7 @@
                     if(is_array($resultado) and count($resultado)>0){
                         //TODO: Almacenamos algunos datos del usuario en la sesión
                         $_SESSION["usu_id"] = $resultado["usu_id"];
-                        $_SESSION["usu_nom"] = $resultado["usu_nom"];
+                        $_SESSION["usu_nombre"] = $resultado["usu_nombre"];
                         $_SESSION["usu_correo"] = $resultado["usu_correo"];
                         //TODO: Redirigimos al usuario a la página de inicio
                         header("Location:".conectar::ruta()."view/Home/");
@@ -47,37 +47,37 @@
         public function get_usuario(){
             $conectar = parent::conexion();
             parent::set_names();
-            $sql = "SELECT * FROM tm_usuario WHERE est = 1";
+            $sql = "SELECT * FROM t_usuario WHERE est = 1";
             $sql = $conectar->prepare($sql);
             $sql->execute();
             return $resultado = $sql->fetchAll();
         }
 
         // TODO: Función para insertar un nuevo usuario en la base de datos.
-        public function insert_usuario($usu_correo, $usu_nom, $usu_pass){
+        public function insert_usuario($usu_correo, $usu_nombre, $usu_pass){
             $conectar = parent::conexion();
             parent::set_names();
-            $sql = "INSERT INTO tm_usuario (usu_id, usu_correo, usu_nom, usu_pass, est) VALUES (NULL, ?, ?, ?, '1')";
+            $sql = "INSERT INTO t_usuario (usu_id, usu_correo, usu_nombre, usu_pass, est) VALUES (NULL, ?, ?, ?, '1')";
             $sql = $conectar->prepare($sql);
             $sql->bindValue(1, $usu_correo);
-            $sql->bindValue(2, $usu_nom);
+            $sql->bindValue(2, $usu_nombre);
             $sql->bindValue(3, $usu_pass);
             $sql->execute();
             return $resultado = $sql->fetchAll();
         }
 
         // TODO: Función para actualizar un usuario existente en la base de datos.
-        public function update_usuario($usu_id, $usu_correo, $usu_nom, $usu_pass){
+        public function update_usuario($usu_id, $usu_correo, $usu_nombre, $usu_pass){
             $conectar = parent::conexion();
             parent::set_names();
-            $sql = "UPDATE tm_usuario SET
+            $sql = "UPDATE t_usuario SET
                     usu_correo = ?,
-                    usu_nom = ?,
+                    usu_nombre = ?,
                     usu_pass = ?
                     WHERE usu_id = ?";
             $sql = $conectar->prepare($sql);
             $sql->bindValue(1, $usu_correo);
-            $sql->bindValue(2, $usu_nom);
+            $sql->bindValue(2, $usu_nombre);
             $sql->bindValue(3, $usu_pass);
             $sql->bindValue(4, $usu_id);
             $sql->execute();
@@ -88,7 +88,7 @@
         public function delete_usuario($usu_id){
             $conectar = parent::conexion();
             parent::set_names();
-            $sql = "UPDATE tm_usuario SET est = 0 WHERE usu_id = ?";
+            $sql = "UPDATE t_usuario SET est = 0 WHERE usu_id = ?";
             $sql = $conectar->prepare($sql);
             $sql->bindValue(1, $usu_id);
             $sql->execute();
@@ -99,7 +99,7 @@
         public function get_usuario_x_id($usu_id){
             $conectar = parent::conexion();
             parent::set_names();
-            $sql = "SELECT * FROM tm_usuario WHERE usu_id = ?";
+            $sql = "SELECT * FROM t_usuario WHERE usu_id = ?";
             $sql = $conectar->prepare($sql);
             $sql->bindValue(1, $usu_id);
             $sql->execute();

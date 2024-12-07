@@ -9,7 +9,7 @@
             // TODO: Se configura la codificación de caracteres.
             parent::set_names();
             // TODO: Se define la consulta SQL para obtener todas las empresas activas.
-            $sql = "SELECT * FROM tm_empresa WHERE est=1";
+            $sql = "SELECT * FROM tm_empresa WHERE emp_est=1";
             $sql = $conectar->prepare($sql);
             $sql->execute();
             // TODO: Se obtienen los resultados de la consulta en un arreglo.
@@ -23,7 +23,7 @@
             // TODO: Se configura la codificación de caracteres.
             parent::set_names();
             // TODO: Se define la consulta SQL para insertar una nueva empresa.
-            $sql = "INSERT INTO tm_empresa (emp_id, emp_nom, emp_porcen,est) VALUES (NULL, ?, ?,1);";
+            $sql = "INSERT INTO tm_empresa (emp_id, emp_nom, emp_porcen,emp_est) VALUES (NULL, ?, ?,1);";
             $sql = $conectar->prepare($sql);
             $sql->bindValue(1, $emp_nom);
             $sql->bindValue(2, $emp_porcen);
@@ -61,7 +61,7 @@
             // TODO: Se configura la codificación de caracteres.
             parent::set_names();
             // TODO: Se define la consulta SQL para eliminar una empresa.
-            $sql = "UPDATE tm_empresa SET est = 0 WHERE emp_id = ?";
+            $sql = "UPDATE tm_empresa SET emp_est = 0 WHERE emp_id = ?";
             $sql = $conectar->prepare($sql);
             $sql->bindValue(1, $emp_id);
             $sql->execute();

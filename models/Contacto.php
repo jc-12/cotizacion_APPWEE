@@ -21,7 +21,7 @@
             INNER JOIN tm_cliente ON tm_contacto.cli_id = tm_cliente.cli_id
             INNER JOIN tm_cargo ON tm_contacto.car_id = tm_cargo.car_id
             WHERE
-            tm_contacto.est=1;";
+            tm_contacto.con_est=1;";
             $sql = $conectar->prepare($sql);
             $sql->execute();
             return $resultado = $sql->fetchAll();
@@ -31,7 +31,7 @@
         public function insert_contacto($cli_id, $car_id, $con_nom, $con_email, $con_telf){
             $conectar = parent::conexion();
             parent::set_names();
-            $sql = "INSERT INTO tm_contacto (con_id, cli_id, car_id, con_nom, con_email, con_telf, est) VALUES (NULL, ?, ?, ?, ?, ?, '1')";
+            $sql = "INSERT INTO tm_contacto (con_id, cli_id, car_id, con_nom, con_email, con_telf, con_est) VALUES (NULL, ?, ?, ?, ?, ?, '1')";
             $sql = $conectar->prepare($sql);
             $sql->bindValue(1, $cli_id);
             $sql->bindValue(2, $car_id);
@@ -68,7 +68,7 @@
         public function delete_contacto($con_id){
             $conectar = parent::conexion();
             parent::set_names();
-            $sql = "UPDATE tm_contacto SET est = 0 WHERE con_id = ?";
+            $sql = "UPDATE tm_contacto SET con_est = 0 WHERE con_id = ?";
             $sql = $conectar->prepare($sql);
             $sql->bindValue(1, $con_id);
             $sql->execute();
@@ -92,7 +92,7 @@
             $sql = "SELECT * FROM tm_contacto 
                 WHERE
                 cli_id = ?
-                AND est=1";
+                AND con_est=1";
             $sql = $conectar->prepare($sql);
             $sql->bindValue(1, $cli_id);
             $sql->execute();

@@ -9,7 +9,7 @@
             // TODO: Se configura la codificación de caracteres.
             parent::set_names();
             // TODO: Se define la consulta SQL para obtener todos los clientes activos.
-            $sql="SELECT * FROM tm_cliente WHERE est=1;";
+            $sql="SELECT * FROM tm_cliente WHERE cli_est=1;";
             $sql=$conectar->prepare($sql);
             $sql->execute();
             // TODO: Se obtienen los resultados de la consulta en un arreglo.
@@ -23,7 +23,7 @@
             // TODO: Se configura la codificación de caracteres.
             parent::set_names();
             // TODO: Se define la consulta SQL para insertar un nuevo cliente.
-            $sql="INSERT INTO tm_cliente (cli_id, cli_nom, cli_ruc, cli_telf, cli_email, est) VALUES (NULL, ?, ?, ?, ?, '1');";
+            $sql="INSERT INTO tm_cliente (cli_id, cli_nom, cli_ruc, cli_telf, cli_email, cli_est) VALUES (NULL, ?, ?, ?, ?, '1');";
             $sql=$conectar->prepare($sql);
             $sql->bindValue(1, $cli_nom);
             $sql->bindValue(2, $cli_ruc);
@@ -67,7 +67,7 @@
             parent::set_names();
             // Se define la consulta SQL para eliminar una cliente.
             $sql="UPDATE tm_cliente SET
-                est = 0
+                cli_est = 0
                 WHERE
                 cli_id = ?";
             $sql=$conectar->prepare($sql);

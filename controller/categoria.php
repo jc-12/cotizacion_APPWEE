@@ -1,4 +1,6 @@
 <?php
+
+
     //TODO: Se incluyen los archivos necesarios
     require_once("../config/conexion.php");
     require_once("../models/Categoria.php");

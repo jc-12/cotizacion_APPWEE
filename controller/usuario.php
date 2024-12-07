@@ -13,10 +13,10 @@
         case "guardaryeditar":
             //TODO: Si no se envió un id de usuario, se inserta un nuevo usuario
             if(empty($_POST["usu_id"])){
-                $usuario->insert_usuario($_POST["usu_correo"],$_POST["usu_nom"],$_POST["usu_pass"]);
+                $usuario->insert_usuario($_POST["usu_correo"],$_POST["usu_nombre"],$_POST["usu_pass"]);
             }else{
                 //TODO: Si se envió un id de usuario, se actualiza el usuario correspondiente
-                $usuario->update_usuario($_POST["usu_id"],$_POST["usu_correo"],$_POST["usu_nom"],$_POST["usu_pass"]);
+                $usuario->update_usuario($_POST["usu_id"],$_POST["usu_correo"],$_POST["usu_nombre"],$_POST["usu_pass"]);
             }
             break;
 
@@ -27,7 +27,7 @@
             $data=Array();
             foreach($datos as $row){
                 $sub_array = array();
-                $sub_array[] = $row["usu_nom"];
+                $sub_array[] = $row["usu_nombre"];
                 $sub_array[] = $row["usu_correo"];
                 $sub_array[] = '<button type="button" onClick="editar('.$row["usu_id"].')" id="'.$row["usu_id"].'" class="btn btn-warning btn-xs">Editar</button>';
                 $sub_array[] = '<button type="button" onClick="eliminar('.$row["usu_id"].')" id="'.$row["usu_id"].'" class="btn btn-danger btn-xs">Eliminar</button>';
@@ -50,7 +50,7 @@
             if (is_array($datos)==true and count($datos)>0){
                 foreach($datos as $row){
                     $output["usu_id"]=$row["usu_id"];
-                    $output["usu_nom"]=$row["usu_nom"];
+                    $output["usu_nombre"]=$row["usu_nombre"];
                     $output["usu_correo"]=$row["usu_correo"];
                     $output["usu_pass"]=$row["usu_pass"];
                 }
